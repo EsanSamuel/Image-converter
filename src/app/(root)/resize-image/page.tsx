@@ -15,6 +15,14 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoChevronBack, IoCloudUploadOutline } from "react-icons/io5";
 import { toast } from "sonner";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const page = () => {
   const [selectedImages, setSelectedImages] = useState<File[] | null>(null);
@@ -28,6 +36,8 @@ const page = () => {
   const [convertedImageType, setConvertedImageType] = useState<string>("");
   const [convertedImageSize, setConvertedImageSize] = useState<number>(0);
   const [imageSize, setImageSize] = useState<number>(0);
+  const [width, setWidth] = useState<string>("");
+  const [height, setHeight] = useState<string>("");
   const [resizedImageFile, setResizedImageFile] = useState<File[] | null>(null);
   const router = useRouter();
 
@@ -62,13 +72,16 @@ const page = () => {
 
       const formData = new FormData();
       selectedImages?.forEach((file) => formData.append("files", file));
-      formData.append("format", format);
+      formData.append("width", width);
+      formData.append("height", height);
 
-      const response = await fetch("/api/convert-multiple-images", {
+      const response = await fetch("/api/resize-image", {
         method: "POST",
         body: formData,
       });
-      toast.success(`Images type converted to ${format}`);
+      toast.success(
+        `Images type converted to ${parseInt(width)} x ${parseInt(height)}`,
+      );
 
       if (!response.ok) {
         toast.error("Image Format convertion Failed!");
@@ -85,9 +98,9 @@ const page = () => {
           byteArray[i] = byteString.charCodeAt(i);
         }
 
-        const blob = new Blob([byteArray], { type: `image/${format}` }); // Adjust format dynamically
-        return new File([blob], `converted_image_${index + 1}.${format}`, {
-          type: `image/${format}`,
+        const blob = new Blob([byteArray], { type: `image/png` }); // Adjust format dynamically
+        return new File([blob], `converted_image_${index + 1}.png`, {
+          type: `image/png`,
         });
       });
 
@@ -147,9 +160,43 @@ const page = () => {
         <aside>
           <div className="flex items-center gap-2">
             <IoChevronBack size={22} onClick={() => router.push("/select")} />{" "}
-            <h1 className="text-[18px] font-semibold">
-              Convert multiple image type
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-[18px] font-semibold">Resize image</h1>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger className="cursor-pointer rounded-full bg-[#8c6dfd] px-3 py-1 text-[11px] text-white">
+                  Image size guide
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>Image dimension usecase</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    Thumbnail Images (150 x 150px)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Profile Picture (400 x 400px)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>Small Image (600 x 600px)</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Medium Image (800 x 800px)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Instagram Post (1080 x 1080px)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Large Image (1200 x 1200px)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>HD (1280 x 720px)</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Large Social Media Banner (1500 x 500px)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>Full HD (1920 x 1080px)</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    4K Resolution (3840 x 2160px)
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
           <div className="flex flex-col gap-3 pt-10">
             <div className="h-auto w-full rounded-[20px] border-[1px] px-4 py-2 xl:w-[250px]">
@@ -170,41 +217,64 @@ const page = () => {
               </p>
             </div>
             <div className="h-auto w-full px-4 py-2 xl:w-[250px]">
-              <h1 className="pb-1 font-semibold">Change image Type</h1>
-              <Select value={format} onValueChange={setFormat}>
+              <h1 className="pb-1 font-semibold">Change image width</h1>
+              <Select value={width} onValueChange={setWidth}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select image type" />
+                  <SelectValue placeholder="Select image width" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="jpeg">JPEG</SelectItem>
-                  <SelectItem value="png">PNG</SelectItem>
-                  <SelectItem value="webp">WEBP</SelectItem>
-                  <SelectItem value="tiff">TIFF</SelectItem>
-                  <SelectItem value="avif">AVIF</SelectItem>
-                  <SelectItem value="gif">GIF</SelectItem>
-                  <SelectItem value="svg">SVG</SelectItem>
+                  <SelectItem value="150">150</SelectItem>
+                  <SelectItem value="200">200</SelectItem>
+                  <SelectItem value="400">400</SelectItem>
+                  <SelectItem value="600">600</SelectItem>
+                  <SelectItem value="800">800</SelectItem>
+                  <SelectItem value="1024">1024</SelectItem>
+                  <SelectItem value="1080">1080</SelectItem>
+                  <SelectItem value="1200">1200</SelectItem>
+                  <SelectItem value="1280">1280</SelectItem>
+                  <SelectItem value="1440">1440</SelectItem>
+                  <SelectItem value="1500">1500</SelectItem>
+                  <SelectItem value="1600">1600</SelectItem>
+                  <SelectItem value="1920">1920</SelectItem>
+                  <SelectItem value="2560">2560</SelectItem>
+                  <SelectItem value="3840">3840</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="h-auto w-full px-4 py-2 xl:w-[250px]">
+              <h1 className="pb-1 font-semibold">Change image height</h1>
+              <Select value={height} onValueChange={setHeight}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select image height" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="150">150</SelectItem>
+                  <SelectItem value="200">200</SelectItem>
+                  <SelectItem value="400">400</SelectItem>
+                  <SelectItem value="400">500</SelectItem>
+                  <SelectItem value="600">600</SelectItem>
+                  <SelectItem value="720">720</SelectItem>
+                  <SelectItem value="800">800</SelectItem>
+                  <SelectItem value="1080">1080</SelectItem>
+                  <SelectItem value="1200">1200</SelectItem>
+                  <SelectItem value="1440">1440</SelectItem>
+                  <SelectItem value="1600">1600</SelectItem>
+                  <SelectItem value="1920">1920</SelectItem>
+                  <SelectItem value="2160">2160</SelectItem>
+                  <SelectItem value="2560">2560</SelectItem>
+                  <SelectItem value="3840">3840</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
           <div className="bottom-[20%] xl:fixed">
-            {convertedImages.length !== 0 && (
-              <div className="flex flex-col gap-2">
-                <h1>
-                  Converted images MB:{" "}
-                  {convertedImageSize
-                    ? `${(convertedImageSize / 1024 / 1024).toFixed(2)} MB`
-                    : "0.00 MB"}
-                </h1>
-                <p className="text-[11px]">Converted image Type: {format}</p>
-              </div>
-            )}
             <Button
               onClick={handleConvert}
               className={`mt-7 w-full rounded-[20px] bg-[#8c6dfd] px-10 py-7 text-[18px] hover:opacity-50 xl:w-[250px] ${isLoading && "opacity-50"}`}
             >
-              {isLoading ? "Converting..." : "Convert"}
+              {isLoading ? "Resizing..." : "Resize"}
             </Button>
           </div>
         </aside>
@@ -231,20 +301,22 @@ const page = () => {
                 </>
               ) : (
                 <div className="grid max-h-[300px] grid-cols-2 gap-2 overflow-y-auto p-2">
-                  {previewImages?.map(({ url, type, size }, index) => (
-                    <div key={index} className="w-full xl:w-[200px]">
-                      <Image
-                        src={url}
-                        width={1000}
-                        height={1000}
-                        alt="image"
-                        className="h-auto max-h-[200px] w-full max-w-[300px] rounded-[10px]"
-                      />
-                      <h1 className="text-[12px]">
-                        {type}, {`${(size / 1024 / 1024).toFixed(2)} MB`}
-                      </h1>
-                    </div>
-                  ))}
+                  {previewImages?.map(({ url, type, size }, index) => {
+                    return (
+                      <div key={index} className="w-full xl:w-[200px]">
+                        <Image
+                          src={url}
+                          width={1000}
+                          height={1000}
+                          alt="image"
+                          className="h-auto max-h-[200px] w-full max-w-[300px] rounded-[10px]"
+                        />
+                        <h1 className="text-[12px]">
+                          {type}, {`${(size / 1024 / 1024).toFixed(2)} MB`} ,
+                        </h1>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -271,6 +343,17 @@ const page = () => {
                   Download
                 </Button>
               </div>
+              {convertedImages.length !== 0 && (
+                <div className="mt-5 flex flex-col gap-2">
+                  <h1>
+                    Converted images MB:{" "}
+                    {convertedImageSize
+                      ? `${(convertedImageSize / 1024 / 1024).toFixed(2)} MB`
+                      : "0.00 MB"}
+                  </h1>
+                  <p className="text-[11px]">{`Image dimension converted to ${parseInt(width)} x ${parseInt(height)}`}</p>
+                </div>
+              )}
             </>
           )}
         </div>

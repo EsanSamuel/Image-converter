@@ -16,7 +16,7 @@ const Navbar = () => {
           ImageKit.
         </h1>
         {pathname === "/" && (
-          <ul className="flex gap-5 text-center text-[13px]">
+          <ul className="xl:flex hidden gap-5 text-center text-[13px]">
             <li className="">Overview</li>
             <li className="">Features</li>
             <li className="">Support</li>
@@ -25,7 +25,7 @@ const Navbar = () => {
       </div>
       <div>
         <Button className="bg-[#8c6dfd] text-[13px] hover:opacity-50">
-          Get Started!
+          Get Started
         </Button>
       </div>
     </div>
