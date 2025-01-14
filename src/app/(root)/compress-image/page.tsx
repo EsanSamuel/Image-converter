@@ -167,7 +167,7 @@ const Page = () => {
                   width={1000}
                   height={1000}
                   alt="image"
-                  className="rounded h-auto max-h-[300px]"
+                  className="rounded-[10px] h-auto max-h-[250px]"
                 />
               )}
             </div>
@@ -179,7 +179,7 @@ const Page = () => {
                 width={1000}
                 height={1000}
                 alt="image"
-                className="h-auto max-h-[300px] w-auto max-w-[300px] rounded-[10px]"
+                className="h-auto max-h-[250px] w-auto max-w-[300px] rounded-[10px]"
               />
               <div className="mt-3">
                 <Button className="rounded-full" onClick={handleDownload}>

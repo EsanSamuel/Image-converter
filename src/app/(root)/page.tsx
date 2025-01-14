@@ -12,7 +12,7 @@ const Page = () => {
   return (
     <div className="bg-white pb-10">
       <Navbar />
-      <div className="px-5 pt-[25%] text-center xl:px-[10%] xl:pt-[10%] ">
+      <div className="px-5 pt-[25%] text-center xl:px-[10%] xl:pt-[10%] md:pt-[10%] ">
         <h1 className="text-[50px] font-bold xl:text-[70px]">
           Convert⚡ & Compress Images with Ease✨!
         </h1>
