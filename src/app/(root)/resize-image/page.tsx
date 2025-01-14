@@ -24,7 +24,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const page = () => {
+const Page = () => {
   const [selectedImages, setSelectedImages] = useState<File[] | null>(null);
   const [previewImages, setPreviewImages] = useState<
     { url: string; type: string; size: number }[]
@@ -362,4 +362,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

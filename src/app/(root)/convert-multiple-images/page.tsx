@@ -16,7 +16,7 @@ import React, { useEffect, useState } from "react";
 import { IoChevronBack, IoCloudUploadOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
-const page = () => {
+const Page = () => {
   const [selectedImages, setSelectedImages] = useState<File[] | null>(null);
   const [previewImages, setPreviewImages] = useState<
     { url: string; type: string; size: number }[]
@@ -279,4 +279,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

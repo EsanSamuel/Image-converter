@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { compressFile, downloadFile } from "@/app/utils/helper";
 import Image from "next/image";
 
-const page = () => {
+const Page = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [compressedImage, setCompressedImage] = useState<File | null>(null);
   const [imageType, setImageType] = useState<string>("");
@@ -62,7 +62,7 @@ const page = () => {
     if (compressedImage) {
       ReducedBy();
     }
-  }, [compressedImage]);
+  }, [compressedImage,ReducedBy]);
 
   useEffect(() => {
     const previewImage = () => {
@@ -194,4 +194,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import Services from "../components/Services";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   return (
     <div className="bg-white pb-10">
@@ -43,4 +43,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
