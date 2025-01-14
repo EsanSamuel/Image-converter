@@ -11,7 +11,7 @@ const Services = () => {
       </h1>
 
       <div className="mt-10 grid grid-cols-1 items-center gap-5 rounded-[30px] bg-gray-50 p-3 px-3 xl:grid-cols-3 xl:p-10">
-        <div className="flex flex-col items-center gap-2 rounded-[20px] bg-white px-5 py-8 text-center">
+        <div className="flex flex-col items-center gap-2 rounded-[20px] bg-white px-5 py-8 text-center shadow-sm">
           <ImageDown
             size={50}
             className="rounded-md bg-[#b5f0f0] p-2 text-[#83a4e4]"
