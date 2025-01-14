@@ -54,8 +54,8 @@ const Page = () => {
               />
             </div>
 
-            <div className="mt-10 flex w-auto flex-col items-center justify-center rounded-[20px] bg-gray-50 p-10">
-              <div className="flex h-[70px] w-full cursor-pointer gap-4 rounded-[20px] text-start sm:w-[300px]">
+            <div className="mt-10 flex w-auto flex-col items-center justify-center rounded-[20px] bg-gray-50 xl:p-10 md:p-10 p-5">
+              <div className="flex h-auto w-full cursor-pointer gap-4 rounded-[20px] text-start sm:w-[300px]">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#cce0ff] p-2 text-center">
                   <NotepadText className="text-[#8a2eff]" />
                 </div>
@@ -69,7 +69,7 @@ const Page = () => {
                 </div>
               </div>
               <Separator className="my-5" />
-              <div className="flex h-[70px] w-full cursor-pointer gap-4 rounded-[20px] text-start sm:w-[300px]">
+              <div className="flex h-auto w-full cursor-pointer gap-4 rounded-[20px] text-start sm:w-[300px]">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#cce0ff] p-2 text-center">
                   <NotepadText className="text-[#8a2eff]" />
                 </div>
@@ -83,7 +83,7 @@ const Page = () => {
               </div>
               <Separator className="my-5" />
 
-              <div className="flex h-[70px] w-full cursor-pointer gap-4 rounded-[20px] text-start sm:w-[300px]">
+              <div className="flex h-auto w-full cursor-pointer gap-4 rounded-[20px] text-start sm:w-[300px]">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#cce0ff] p-2 text-center">
                   <NotepadText className="text-[#8a2eff]" />
                 </div>
