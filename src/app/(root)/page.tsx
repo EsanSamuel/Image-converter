@@ -28,13 +28,13 @@ const Page = () => {
         >
           Get Started
         </Button>
-        <div className="mt-10 xl:p-10 p-5 xl:rounded-[30px] rounded-[20px]  bg-gray-50">
+        <div className="mt-10 xl:p-10 p-5 xl:rounded-[30px] md:rounded-[20px] rounded-[10px]  bg-gray-50">
           <Image
             src="/screenshot1.png"
             alt=""
             width={1000}
             height={1000}
-            className="w-full xl:rounded-[20px] rounded-[10px] shadow-md"
+            className="w-full xl:rounded-[20px] md:rounded-[10px] rounded-[5px] shadow-md"
           />
         </div>
         <Services />
