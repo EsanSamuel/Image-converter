@@ -62,7 +62,7 @@ const Page = () => {
     if (compressedImage) {
       ReducedBy();
     }
-  }, [compressedImage,ReducedBy]);
+  }, [compressedImage, ReducedBy]);
 
   useEffect(() => {
     const previewImage = () => {
@@ -128,7 +128,7 @@ const Page = () => {
 
           <div className="bottom-[25%] xl:fixed">
             {compressedImage && (
-              <div className="flex flex-col gap-2">
+              <div className="xl:flex hidden flex-col gap-2">
                 <h1>
                   Compressed MB:{" "}
                   {`${(compressedImage?.size / 1024 / 1024).toFixed(2)} MB`}{" "}
@@ -167,7 +167,7 @@ const Page = () => {
                   width={1000}
                   height={1000}
                   alt="image"
-                  className="rounded"
+                  className="rounded h-auto max-h-[300px]"
                 />
               )}
             </div>
@@ -179,13 +179,24 @@ const Page = () => {
                 width={1000}
                 height={1000}
                 alt="image"
-                className="h-auto w-auto max-w-[300px] rounded-[10px]"
+                className="h-auto max-h-[300px] w-auto max-w-[300px] rounded-[10px]"
               />
               <div className="mt-3">
                 <Button className="rounded-full" onClick={handleDownload}>
                   Download
                 </Button>
               </div>
+              {compressedImage && (
+              <div className="flex xl:hidden flex-col gap-2 mt-5">
+                <h1>
+                  Compressed MB:{" "}
+                  {`${(compressedImage?.size / 1024 / 1024).toFixed(2)} MB`}{" "}
+                </h1>
+                <p className="text-[11px]">
+                  Reduced by: {`${(reducedMB / 1024 / 1024).toFixed(2)} MB`}{" "}
+                </p>
+              </div>
+            )}
             </div>
           )}
         </div>
