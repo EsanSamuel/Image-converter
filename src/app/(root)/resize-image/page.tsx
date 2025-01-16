@@ -55,15 +55,19 @@ const Page = () => {
     }
   };
 
-  const getImageSizeFromBase64 = (base64String: string): number => {
+    const getImageSizeFromBase64 = (base64Strings: string[]): number => {
     // Remove metadata if present (e.g., "data:image/png;base64,")
+let totalImageSize = 0
+base64Strings.forEach((base64String) => {
     const cleanBase64 = base64String.split(",").pop() || "";
 
     // Calculate the size in bytes
     const padding = (cleanBase64.match(/=/g) || []).length; // Count '=' characters
     const sizeInBytes = (cleanBase64.length * 3) / 4 - padding;
 
-    return sizeInBytes;
+totalImageSize += sizeInBytes
+})
+return totalImageSize;
   };
 
   const handleConvert = async () => {
@@ -106,10 +110,8 @@ const Page = () => {
 
       setResizedImageFile(resizedFiles);
 
-      images.forEach((base64String: string) => {
-        const sizeInBytes = getImageSizeFromBase64(base64String);
+              const sizeInBytes = getImageSizeFromBase64(images);
         setConvertedImageSize(sizeInBytes);
-      });
 
       const imageUrls = images.map(
         (base64Image: string) => `data:image/${format};base64,${base64Image}`,
